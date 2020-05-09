@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var submitRouter = require("./routes/submit");
@@ -27,6 +28,14 @@ app.use('/users', usersRouter);
 app.use("/submit", submitRouter);
 app.use("/list", listRouter);
 app.use("/recipe", recipeRouter);
+
+//Database Connection
+var mongoose = require("mongoose");
+var mongoDB = "mongodb+srv://kaiserofgermany:Conrad14@cluster0-vloze.azure.mongodb.net/test?retryWrites=true&w=majority";
+
+mongoose.connect(mongoDB,{useNewUrlParser = true});
+let db = mongoose.connection;
+db.on("error", console.error.bind(console,"MongoDB Error"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
