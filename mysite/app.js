@@ -33,7 +33,7 @@ app.use("/recipe", recipeRouter);
 var mongoose = require("mongoose");
 var mongoDB = "mongodb+srv://kaiserofgermany:Conrad14@cluster0-vloze.azure.mongodb.net/test?retryWrites=true&w=majority";
 
-mongoose.connect(mongoDB,{useNewUrlParser = true});
+mongoose.connect(mongoDB,{useNewUrlParser : true});
 let db = mongoose.connection;
 db.on("error", console.error.bind(console,"MongoDB Error"));
 

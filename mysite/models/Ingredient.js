@@ -3,16 +3,16 @@ var Schema = mongoose.Schema;
 
 var IngredientSchema = new Schema(
     {
-        name:{type: String, required: true, max: 100},
-        alcoholic:{type: Boolean, required: true, max:100}
+        name:{type: String, required: true},
+        alcoholic:{type: Boolean, required: true}
     }
 );
-
+/*
 IngredientSchema.virtual("name").get(function(){
 
 if(!this.name)
 {
-    this.name = "";
+    return "";
 }
     return this.name;
 });
@@ -21,10 +21,10 @@ IngredientSchema.virtual("alcoholic").get(function(){
 
     if(!this.alcoholic)
     {
-        this.alcoholic = true;
+       return true;
     }
         return this.alcoholic;
     });
+*/
 
-
-module.exports = mongoose.model("Drink", DrinkSchema);
+module.exports = mongoose.model("Ingredient", IngredientSchema);

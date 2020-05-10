@@ -3,28 +3,28 @@ var Schema = mongoose.Schema;
 
 var DrinkSchema = new Schema(
     {
-        name:{type: String, required: true, max: 100},
-        discription:{type: String, required: true, max: 1000},
+        name:{type: String, required: true},
+        discription:{type: String, required: true},
         ingredients: [{type: Schema.Types.ObjectId, ref: "Ingredient"}]
     }
 );
+/*
+DrinkSchema.virtual("title").get(function(){
 
-DrinkSchema.virtual("name").get(function(){
-
-if(!this.name)
+if(!this.title)
 {
-    this.name = "";
+    return "";
 }
-    return this.name;
+    return this.title;
 });
 
 DrinkSchema.virtual("discription").get(function(){
 
     if(!this.discription)
     {
-        this.discription = "";
+        return "";
     }
         return this.discription;
     });
-
+*/
 module.exports = mongoose.model("Drink", DrinkSchema);
