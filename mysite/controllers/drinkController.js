@@ -1,4 +1,5 @@
 var Drink = require("../models/drink.js");
+var async = require ("async");
 
 //List drinks
 
@@ -17,7 +18,29 @@ exports.drink_list = function (req,res) {
 //Display details
 
 exports.drink_details = function (req,res) {
-    res.send("Not Implemented for " + req.params.id);
+    async.parallel(
+        {
+            drink: function(callback)
+            {
+                Drink.findById(req.params.id)
+                .populate('name')
+                .populate('discription')
+                .populate('ingredients')
+                .exec(callback);
+            },
+            function(err,result)
+            {
+                if(err){return next(err);}
+                if(result.drink = null)
+                {
+                    var err = new Error("Drink not found");
+                    err.status = 404;
+                    return next(err);
+
+                }
+                res.render('drink_detail',{title: results.drink.name,drink:results.drink});
+            }
+        });
 };
 
 

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Title: #{ingredient.name}
+
+  p #[strong ingredients]
+    if ingredient.alcohoic == true
+      Alocholic
+    else
+      Non-Alcoholic
+   
+  div(style='margin-left:20px;margin-top:20px')
+ 
+ 

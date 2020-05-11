@@ -3,13 +3,40 @@ var Ingredient = require("../models/ingredient.js");
 //List ingredient
 
 exports.ingredient_list = function (req,res) {
-    res.send("Not Implemented");
+    Ingredient.find({}, "name")
+    
+    .populate("name")
+    .exec(function(err,list_ingredients){
+        if(err) {return next(err);}
+        res.render('ingredient_list', { title: 'Ingredient List', ingredient_list: list_ingredients});
+    });
 };
 
 //Display details
 
 exports.ingredient_details = function (req,res) {
-    res.send("Not Implemented for " + req.params.id);
+    async.parallel(
+        {
+            ingredient: function(callback)
+            {
+                Ingredient.findById(req.params.id)
+                .populate('name')
+                .populate('alcoholic')
+                .exec(callback);
+            },
+            function(err,result)
+            {
+                if(err){return next(err);}
+                if(result.ingredient = null)
+                {
+                    var err = new Error("Ingredient not found");
+                    err.status = 404;
+                    return next(err);
+
+                }
+                res.render('ingredient_detail',{title: results.ingredient.name,ingredient:results.ingredient});
+            }
+        });
 };
 
 
