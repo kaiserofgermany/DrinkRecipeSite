@@ -1,4 +1,4 @@
-var Ingredient = require("../models/ingredient");
+var Ingredient = require("../models/ingredient.js");
 
 //List ingredient
 

@@ -7,7 +7,7 @@ var ingredient_controller = require("../controllers/ingredientController");
 
 
 /* GET submit page. */
-router.get('/submit', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.sendFile(folder + "submit.html")
 });
 
@@ -22,7 +22,7 @@ router.post("/ingredient/create", ingredient_controller.ingredient_update_post);
 router.get("/drink/create", drink_controller.drink_create_get);
 
 //post add drink
-router.post("/post/create", drink_controller.drink_create_post);
+router.post("/drink/create", drink_controller.drink_create_post);
 
 //get update ingredient
 router.get("/ingredient/update/:ingredientID", ingredient_controller.ingredient_update_get);

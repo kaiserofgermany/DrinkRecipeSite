@@ -1,9 +1,17 @@
-var Drink = require("../models/drink");
+var Drink = require("../models/drink.js");
 
 //List drinks
 
 exports.drink_list = function (req,res) {
-    res.send("Not Implemented");
+  
+    Drink.find({}, "name")
+    
+        .populate("name")
+        .exec(function(err,list_drinks){
+            if(err) {return next(err);}
+            res.render('drink_list', { title: 'Drink List', drink_list: list_drinks});
+        });
+    
 };
 
 //Display details
