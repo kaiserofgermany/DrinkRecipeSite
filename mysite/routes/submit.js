@@ -13,10 +13,10 @@ router.get('/', function(req, res, next) {
 
 
 //get add ingredient
-router.get("/ingredient/create", ingredient_controller.ingredient_update_get);
+router.get("/ingredient/create", ingredient_controller.ingredient_create_get);
 
 //post add ingredient
-router.post("/ingredient/create", ingredient_controller.ingredient_update_post);
+router.post("/ingredient/create", ingredient_controller.ingredient_create_post);
 
 //get add drink
 router.get("/drink/create", drink_controller.drink_create_get);

@@ -1,5 +1,7 @@
 var Drink = require("../models/drink.js");
 var async = require ("async");
+const {body, validationResult} = require("express-validator/check");
+const {sanitizeBody} = require("express-validator/filter");
 
 //List drinks
 
@@ -46,14 +48,15 @@ exports.drink_details = function (req,res) {
 
 //Create Get
 
-exports.drink_create_get = function (req,res) {
-    res.send("Not Implemented for create get");
+exports.drink_create_get = function(req,res) {
+    res.send("Not implemented for create post");
+
 };
 
 //Create Post
 
-exports.drink_create_post = function (req,res) {
-    res.send("Not Implemented for create post");
+exports.drink_create_post = function(req,res){
+    res.send("Not implemented for create post");
 };
 
 //Delete Get

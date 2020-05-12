@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  form(method= "POST" action = "")
+    div.form-group
+      label(for="name") Ingredient:
+      input#name.form-control(type="text", placeholder= "Juice, Vodka etc" name="name" value=(undefined===ingredient ? "" : ingredient.name))
+      input#alcoholic.form-control(type="checkbox", name = "alcoholic" value=(undefined===ingredient ? true : ingredient.alcoholic))
+    button.btn.btn-primary(type="submit") Submit
+
+  if errors
+    ul  
+      for error in errors
+        li!= error.msg

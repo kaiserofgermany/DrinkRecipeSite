@@ -1,4 +1,5 @@
 var Ingredient = require("../models/ingredient.js");
+const validator = require("express-validator");
 
 //List ingredient
 
@@ -43,14 +44,51 @@ exports.ingredient_details = function (req,res) {
 //Create Get
 
 exports.ingredient_create_get = function (req,res) {
-    res.send("Not Implemented for create get");
+    res.render("ingredient_form", {title:"Create Ingredient"});
 };
 
 //Create Post
 
-exports.ingredient_create_post = function (req,res) {
-    res.send("Not Implemented for create post");
-};
+exports.ingredient_create_post = [
+        validator.body('name',"Ingredient name is required").trim().isLength({min: 1}),
+
+        validator.sanitizeBody('name').escape(),
+        validator.sanitizeBody('alcoholic').toBoolean(),
+
+        (req,res,next) => {
+            const errors = validator.validationResult(req);
+
+            var ingredient = new Ingredient ({name: req.body.name, alcoholic: req.body.alcoholic});
+
+            if(!errors.isEmpty())
+            {
+                res.render('ingredient_form',{title: 'Create Ingredient', ingredient: ingredient, errors: errors.array()});
+                return;
+            }
+            else
+            {
+
+                Ingredient.findOne({'name' : req.body.name})
+                    .exec (function(err, found_ingredient){
+                        if(err){return next(err);}
+                        if(found_ingredient)
+                        {
+                            res.redirect(found_ingredient.url);
+                        }
+                        else
+                        {
+                            ingredient.save(function(err) {
+                                if(err){return next(err);}
+                                res.redirect(ingredient.url);
+                            });
+                        }
+                      
+                    })
+                    
+
+            }
+        }
+];
 
 //Delete Get
 
